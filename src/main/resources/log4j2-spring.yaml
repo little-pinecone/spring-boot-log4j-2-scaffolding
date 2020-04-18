@@ -1,0 +1,41 @@
+Configuration:
+  properties:
+    property:
+      - name: LOG_EXCEPTION_CONVERSION_WORD
+        value: "%xwEx"
+      - name: LOG_LEVEL_PATTERN
+        value: "%5p"
+      - name: LOG_DATEFORMAT_PATTERN
+        value: "yyyy-MM-dd HH:mm:ss.SSS"
+      - name: CONSOLE_LOG_PATTERN
+        value: "%d{${LOG_DATEFORMAT_PATTERN}} %highlight{${LOG_LEVEL_PATTERN}}{TRACE=blue} %style{%pid}{Magenta} ---
+        [%15.15t] %style{%-40.40c{1.}}{Cyan} : %m%n${sys:LOG_EXCEPTION_CONVERSION_WORD}"
+      - name: FILE_LOG_PATTERN
+        value: "%d{${LOG_DATEFORMAT_PATTERN}} ${LOG_LEVEL_PATTERN} %pid --- [%t] %-40.40c{1.} : %m%n${sys:LOG_EXCEPTION_CONVERSION_WORD}"
+      - name: LOG_DIR
+        value: "logs"
+  appenders:
+    Console:
+      name: STDOUT
+      PatternLayout:
+        Pattern: ${CONSOLE_LOG_PATTERN}
+    File:
+      - name: AllFile
+        fileName: ${LOG_DIR}/all.log
+        PatternLayout:
+          Pattern: ${FILE_LOG_PATTERN}
+      - name: KeepgrowingAppFile
+        fileName: ${LOG_DIR}/app.log
+        PatternLayout:
+          Pattern: ${FILE_LOG_PATTERN}
+  Loggers:
+    logger:
+      - name: in.keepgrowing.springbootlog4j2scaffolding
+        level: info
+        AppenderRef:
+          - ref: KeepgrowingAppFile
+    Root:
+      level: info
+      AppenderRef:
+        - ref: AllFile
+        - ref: STDOUT

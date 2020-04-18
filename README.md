@@ -23,6 +23,7 @@ $ mvn clean install
 ## Overview and technical features
 
 * [Log4j 2](https://logging.apache.org/log4j/2.x/) is used for logs processing
+* The application uses two loggers and sends log entries to three appenders. 
 
 ## Built With
 
