@@ -24,16 +24,7 @@ Configuration:
         fileName: ${LOG_DIR}/all.log
         PatternLayout:
           Pattern: ${FILE_LOG_PATTERN}
-      - name: KeepgrowingAppFile
-        fileName: ${LOG_DIR}/app.log
-        PatternLayout:
-          Pattern: ${FILE_LOG_PATTERN}
   Loggers:
-    logger:
-      - name: in.keepgrowing.springbootlog4j2scaffolding
-        level: info
-        AppenderRef:
-          - ref: KeepgrowingAppFile
     Root:
       level: info
       AppenderRef:
