@@ -7,6 +7,7 @@ This project is a simple scaffolding for a Spring Boot application that uses Log
 To learn how to set up a project like this one, check out the following posts:
 
 * [Spring Boot Log4j 2 advanced configuration #1 - saving logs to files](https://keepgrowing.in/java/springboot/spring-boot-log4j-2-advanced-configuration-#1---saving-logs-to-files/)
+* [Spring Boot Log4j 2 advanced configuration #2 - add a Rollover Strategy for a log file](https://keepgrowing.in/java/springboot/spring-boot-log4j-2-advanced-configuration-#2---add-a-rollover-strategy-for-a-log-file/)
 
 ## Getting Started
 
@@ -22,8 +23,9 @@ $ mvn clean install
 
 ## Overview and technical features
 
-* [Log4j 2](https://logging.apache.org/log4j/2.x/) is used for logs processing
-* The application uses two loggers and sends log entries to three appenders. 
+* [Log4j 2](https://logging.apache.org/log4j/2.x/) is used for logs processing.
+* The application uses the `root` logger and sends log entries to `RollingFile` and `Console` appenders.
+* When you run the app, the `logs` directory will be created automatically. 
 
 ## Built With
 

@@ -14,16 +14,26 @@ Configuration:
         value: "%d{${LOG_DATEFORMAT_PATTERN}} ${LOG_LEVEL_PATTERN} %pid --- [%t] %-40.40c{1.} : %m%n${sys:LOG_EXCEPTION_CONVERSION_WORD}"
       - name: LOG_DIR
         value: "logs"
+      - name: ARCHIVED_FILE_PATTERN
+        value: ${LOG_DIR}/$${date:yyyy-MM}/%d{yyyy-MM-dd-HH}
   appenders:
     Console:
       name: STDOUT
       PatternLayout:
         Pattern: ${CONSOLE_LOG_PATTERN}
-    File:
+    RollingFile:
       - name: AllFile
         fileName: ${LOG_DIR}/all.log
+        filePattern: ${ARCHIVED_FILE_PATTERN}-all-%i.log.gz
         PatternLayout:
           Pattern: ${FILE_LOG_PATTERN}
+        policies:
+          CronTriggeringPolicy:
+            schedule: "0 0 * * * ?"
+          SizeBasedTriggeringPolicy:
+            size: 20MB
+        DefaultRolloverStrategy:
+          max: 10
   Loggers:
     Root:
       level: info
