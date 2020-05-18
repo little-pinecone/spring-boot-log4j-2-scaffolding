@@ -1,0 +1,11 @@
+filebeat:
+  inputs:
+    - type: log
+      paths:
+        - /logs/all.log
+      multiline:
+        pattern: '^[[:space:]]+(at|\.{3})[[:space:]]+\b|^Caused by:'
+        match: after
+output:
+  logstash:
+    hosts: ["logstash:5044"]

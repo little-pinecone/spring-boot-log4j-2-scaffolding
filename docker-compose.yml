@@ -1,0 +1,65 @@
+version: "3.3"
+services:
+
+  elasticsearch:
+    image: elasticsearch:$ELASTIC_STACK_VERSION
+    volumes:
+      - elasticsearch:/usr/share/elasticsearch/data
+    environment:
+      ES_JAVA_OPTS: $JAVA_OPTS
+      ELASTIC_USER: $ELASTIC_USER
+      ELASTIC_PASSWORD: $ELASTIC_PASSWORD
+      xpack.security.enabled: "true"
+      # Change discovery type to enable the production mode and bootstrap checks
+      discovery.type: single-node
+    ports:
+      - "9200:9200"
+    networks:
+      - internal
+
+  elastichq:
+    image: elastichq/elasticsearch-hq:latest
+    environment:
+      - HQ_DEFAULT_URL=http://$ELASTIC_USER:$ELASTIC_PASSWORD@$ELASTIC_HOST
+    ports:
+      - "5000:5000"
+    networks:
+      - internal
+    depends_on:
+      - elasticsearch
+
+  logstash:
+    image: logstash:$ELASTIC_STACK_VERSION
+    ports:
+      - "5044:5044"
+      - "9600:9600"
+    environment:
+      LS_JAVA_OPTS: $JAVA_OPTS
+      ELASTIC_USER: $ELASTIC_USER
+      ELASTIC_PASSWORD: $ELASTIC_PASSWORD
+      ELASTIC_HOSTS: $ELASTIC_HOST
+      XPACK_MONITORING_ENABLED: "false"
+    volumes:
+      - ./logstash/pipeline:/usr/share/logstash/pipeline:ro
+    networks:
+      - internal
+    depends_on:
+      - elasticsearch
+
+  filebeat:
+    build:
+      context: ./filebeat
+      args:
+        ELASTIC_STACK_VERSION: $ELASTIC_STACK_VERSION
+    volumes:
+      - ./logs/all.log:/logs/all.log:ro
+    networks:
+      - internal
+    depends_on:
+      - logstash
+
+networks:
+  internal:
+
+volumes:
+  elasticsearch:
