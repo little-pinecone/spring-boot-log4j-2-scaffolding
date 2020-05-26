@@ -9,6 +9,7 @@ To learn how to set up a project like this one, check out the following posts:
 * [Spring Boot Log4j 2 advanced configuration #1 - saving logs to files](https://keepgrowing.in/java/springboot/spring-boot-log4j-2-advanced-configuration-1-saving-logs-to-files/)
 * [Spring Boot Log4j 2 advanced configuration #2 - add a Rollover Strategy for log files](https://keepgrowing.in/java/springboot/spring-boot-log4j-2-advanced-configuration-2-add-a-rollover-strategy-for-log-files/)
 * [Processing logs with Elastic Stack #1 - parse and send various log entries to ElasticSearch](https://keepgrowing.in/java/springboot/processing-logs-with-elastic-stack-1-parse-and-send-various-log-entries-to-elasticsearch/)
+* [Processing logs with Elastic Stack #2 - configure Kibana](https://keepgrowing.in/java/springboot/processing-logs-with-elastic-stack-2-configure-kibana/)
 
 ## Getting Started
 
@@ -32,16 +33,28 @@ springbootelasticstack_filebeat                                                 
 logstash:7.6.2                       0.0.0.0:5044->5044/tcp, 0.0.0.0:9600->9600/tcp   springbootelasticstack_logstash_1
 elastichq/elasticsearch-hq:latest    0.0.0.0:5000->5000/tcp                           springbootelasticstack_elastichq_1
 elasticsearch:7.6.2                  0.0.0.0:9200->9200/tcp, 9300/tcp                 springbootelasticstack_elasticsearch_1
+kibana:7.7.0                         0.0.0.0:5601->5601/tcp                           springbootelasticstack_kibana_1
 ```
 * Visit `http://localhost:5000/#!/` to use ElastiHQ interface to verify the content send to Elasticsearch (run `Query` for the `spring-boot-app-logs-YYYY.MM.dd` index):
  
- ![elastichq-screenshot](readme-images/elastichq-screenshot.png)
+![elastichq-screenshot](readme-images/elastichq-screenshot.png)
+ 
+* Visit `http://localhost:5601/` to log in to Kibana:
+
+![kibana-login-screenshot](readme-images/kibana-login-page.png)
+
+* Use the default username:`elastic` and password: `test`.
+* Create `index` defined in the `logstash.conf` file and browse logs accumulated in the `logs/all.log` file (the file is automatically created on the application startup):
+
+![kibana-discover-screenshot](readme-images/kibana-discover.png)
 
 ## Overview and technical features
 
 * [Log4j 2](https://logging.apache.org/log4j/2.x/) is used for logs processing.
 * The application uses the `root` logger and sends log entries to `RollingFile` and `Console` appenders (when you run the app, the `logs` directory will be created automatically).
-* After log entries are processed by Filebeat and Logstash they are send to ElasticSearch.
+* After log entries had been processed by Filebeat and Logstash, they are send to ElasticSearch.
+* You can browse logs in Kibana.
+
 
 ## Built With
 

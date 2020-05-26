@@ -58,6 +58,18 @@ services:
     depends_on:
       - logstash
 
+  kibana:
+    image: kibana:$ELASTIC_STACK_VERSION
+    environment:
+      ELASTICSEARCH_USERNAME: $ELASTIC_USER
+      ELASTICSEARCH_PASSWORD: $ELASTIC_PASSWORD
+    ports:
+      - "5601:5601"
+    networks:
+      - internal
+    depends_on:
+      - logstash
+
 networks:
   internal:
 
