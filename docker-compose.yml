@@ -10,6 +10,7 @@ services:
       ELASTIC_USER: $ELASTIC_USER
       ELASTIC_PASSWORD: $ELASTIC_PASSWORD
       xpack.security.enabled: "true"
+      xpack.monitoring.collection.enabled: "true"
       # Change discovery type to enable the production mode and bootstrap checks
       discovery.type: single-node
     ports:
@@ -38,7 +39,7 @@ services:
       ELASTIC_USER: $ELASTIC_USER
       ELASTIC_PASSWORD: $ELASTIC_PASSWORD
       ELASTIC_HOSTS: $ELASTIC_HOST
-      XPACK_MONITORING_ENABLED: "false"
+      MONITORING_ENABLED: "false"
     volumes:
       - ./logstash/pipeline:/usr/share/logstash/pipeline:ro
     networks:
@@ -51,6 +52,8 @@ services:
       context: ./filebeat
       args:
         ELASTIC_STACK_VERSION: $ELASTIC_STACK_VERSION
+    ports:
+      - "5066:5066"
     volumes:
       - ./logs/all.log:/logs/all.log:ro
     networks:
@@ -63,12 +66,31 @@ services:
     environment:
       ELASTICSEARCH_USERNAME: $ELASTIC_USER
       ELASTICSEARCH_PASSWORD: $ELASTIC_PASSWORD
+      MONITORING_KIBANA_COLLECTION_ENABLED: "false"
     ports:
       - "5601:5601"
     networks:
       - internal
     depends_on:
       - logstash
+
+  metricbeat:
+    build:
+      context: ./metricbeat
+      args:
+        ELASTIC_STACK_VERSION: $ELASTIC_STACK_VERSION
+    environment:
+      ELASTIC_USER: $ELASTIC_USER
+      ELASTIC_PASSWORD: $ELASTIC_PASSWORD
+      ELASTIC_HOST: $ELASTIC_HOST
+      KIBANA_URL: "kibana:5601"
+    networks:
+      - internal
+    depends_on:
+      - elasticsearch
+      - logstash
+      - filebeat
+      - kibana
 
 networks:
   internal:

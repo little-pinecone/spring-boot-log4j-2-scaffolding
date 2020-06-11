@@ -9,3 +9,8 @@ filebeat:
 output:
   logstash:
     hosts: ["logstash:5044"]
+http:
+  enabled: "true"
+  host: "filebeat"
+monitoring:
+  enabled: "false"

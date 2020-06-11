@@ -1,0 +1,42 @@
+metricbeat:
+  modules:
+    - module: elasticsearch
+      metricsets: ["node_stats", "index", "index_recovery", "index_summary", "shard", "ml_job", "ccr", "enrich", "cluster_stats"]
+      period: 10s
+      hosts: ["${ELASTIC_HOST}"]
+      username: "${ELASTIC_USER}"
+      password: "${ELASTIC_PASSWORD}"
+      xpack.enabled: "true"
+
+    - module: kibana
+      metricsets: ["stats"]
+      period: 10s
+      hosts: ["kibana:5601"]
+      username: "${ELASTIC_USER}"
+      password: "${ELASTIC_PASSWORD}"
+      xpack.enabled: true
+
+    - module: logstash
+      metricsets: ["node", "node_stats"]
+      period: 10s
+      hosts: ["logstash:9600"]
+      username: "${ELASTIC_USER}"
+      password: "${ELASTIC_PASSWORD}"
+      xpack.enabled: true
+
+    - module: beat
+      metricsets: ["stats", "state"]
+      period: 10s
+      hosts: ["filebeat:5066"]
+      username: "${ELASTIC_USER}"
+      password: "${ELASTIC_PASSWORD}"
+      xpack.enabled: true
+setup:
+  dashboards.enabled: true
+  kibana:
+    host: "kibana:5601"
+output:
+  elasticsearch:
+    hosts: ["${ELASTIC_HOST}"]
+    username: "${ELASTIC_USER}"
+    password: "${ELASTIC_PASSWORD}"
