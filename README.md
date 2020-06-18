@@ -12,6 +12,7 @@ To learn how to set up a project like this one, check out the following posts:
 * [Processing logs with Elastic Stack #2 - configure Kibana](https://keepgrowing.in/java/springboot/processing-logs-with-elastic-stack-2-configure-kibana/)
 * [Monitoring Elastic Stack](https://keepgrowing.in/tools/monitoring-elastic-stack/)
 * [How to make one Docker container wait for another](https://keepgrowing.in/tools/how-to-make-one-docker-container-wait-for-another/)
+* [Monitoring Spring Boot projects with Actuator](https://keepgrowing.in/java/springboot/monitoring-spring-boot-projects-with-actuator/)
 
 ## Getting Started
 
@@ -24,6 +25,22 @@ You can build the application with:
 ```bash
 $ mvn clean install
 ```
+
+### Spring security
+
+The application uses [Spring Boot security starter](https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-security).
+The default credentials are specified in the [application.properties](https://github.com/little-pinecone/spring-boot-log4j-2-scaffolding/blob/master/src/main/resources/application.properties) file:
+
+* `Useranme` test
+* `Password` test
+
+### Monitoring Spring Boot with Actuator
+
+After starting the Spring Boot app, you have to sign in:
+
+![login form](readme-images/login-form.png)
+
+Now you can browse the enabled and exposed [Actuator endpoints](http://localhost:8080/actuator): `info`, `health`, `metrics`.
 
 ### Run Elastic Stack
 
@@ -64,8 +81,9 @@ elastichq/elasticsearch-hq:latest    0.0.0.0:5000->5000/tcp                     
 * [Log4j 2](https://logging.apache.org/log4j/2.x/) is used for logs processing.
 * The application uses the `root` logger and sends log entries to `RollingFile` and `Console` appenders (when you run the app, the `logs` directory will be created automatically).
 * After log entries had been processed by Filebeat and Logstash, they are send to ElasticSearch.
-* You can browse logs in Kibana.
-* You can browse Elastic Stack metrics in a Kibana dashboard
+* You can browse logs in [Kibana](http://localhost:5601/).
+* You can browse Elastic Stack metrics in a [Kibana dashboard](http://localhost:5601/app/monitoring).
+* You can monitor the Spring Boot app using [Actuator endpoints](http://localhost:8080/actuator).
 
 
 ## Built With
@@ -79,4 +97,4 @@ elastichq/elasticsearch-hq:latest    0.0.0.0:5000->5000/tcp                     
 
 ## License
 
-This project is licensed under the MIT License - see the [license details](https://opensource.org/licenses/MIT).
+This project is licensed under the Unlicense - see the [license details](https://choosealicense.com/licenses/unlicense/).
