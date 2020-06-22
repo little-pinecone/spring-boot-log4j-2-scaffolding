@@ -1,6 +1,14 @@
 version: "3.3"
 services:
 
+  app:
+    build:
+      context: ./
+    ports:
+      - "8080:8080"
+    networks:
+      - internal
+
   elasticsearch:
     image: elasticsearch:$ELASTIC_STACK_VERSION
     volumes:
@@ -17,6 +25,8 @@ services:
       - "9200:9200"
     networks:
       - internal
+    depends_on:
+      - app
 
   elastichq:
     image: elastichq/elasticsearch-hq:latest
