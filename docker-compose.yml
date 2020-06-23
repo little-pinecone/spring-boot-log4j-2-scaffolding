@@ -84,6 +84,21 @@ services:
     depends_on:
       - logstash
 
+  prometheus:
+    image: prom/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+    ports:
+      - "9090:9090"
+    networks:
+      - internal
+    volumes:
+      - ./prometheus/:/etc/prometheus/
+      - prometheus:/prometheus
+    depends_on:
+      - app
+
   metricbeat:
     build:
       context: ./metricbeat
@@ -107,3 +122,4 @@ networks:
 
 volumes:
   elasticsearch:
+  prometheus:

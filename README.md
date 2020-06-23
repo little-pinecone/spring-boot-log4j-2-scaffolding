@@ -13,6 +13,7 @@ To learn how to set up a project like this one, check out the following posts:
 * [Monitoring Elastic Stack](https://keepgrowing.in/tools/monitoring-elastic-stack/)
 * [How to make one Docker container wait for another](https://keepgrowing.in/tools/how-to-make-one-docker-container-wait-for-another/)
 * [Monitoring Spring Boot projects with Actuator](https://keepgrowing.in/java/springboot/monitoring-spring-boot-projects-with-actuator/)
+* [Monitoring Spring Boot projects with Prometheus](https://keepgrowing.in/tools/monitoring-spring-boot-projects-with-prometheus/)
 * [Run a Spring Boot app in a Docker container](https://keepgrowing.in/java/springboot/run-a-spring-boot-app-in-a-docker-container/)
 
 ## Getting Started
@@ -55,6 +56,9 @@ kibana:7.7.0                         0.0.0.0:5601->5601/tcp                     
 springbootelasticstack_filebeat                                                       springbootelasticstack_filebeat_1
 springbootelasticstack_metricbeat                                                     springbootelasticstack_metricbeat_1
 elastichq/elasticsearch-hq:latest    0.0.0.0:5000->5000/tcp                           springbootelasticstack_elastichq_1
+prom/prometheus                      0.0.0.0:9090->9090/tcp                           springbootelasticstack_prometheus_1
+springbootelasticstack_app           0.0.0.0:8080->8080/tcp                           springbootelasticstack_app_1
+
 ```
 * Visit `http://localhost:5000/#!/` to use ElastiHQ interface to verify the content send to Elasticsearch (run `Query` for the `spring-boot-app-logs-YYYY.MM.dd` index):
  
@@ -85,6 +89,7 @@ elastichq/elasticsearch-hq:latest    0.0.0.0:5000->5000/tcp                     
 * You can browse logs in [Kibana](http://localhost:5601/).
 * You can browse Elastic Stack metrics in a [Kibana dashboard](http://localhost:5601/app/monitoring).
 * You can monitor the Spring Boot app using [Actuator endpoints](http://localhost:8080/actuator).
+* You can monitor the Spring Boot app using [Prometheus dashboard](http://localhost:9090).
 
 
 ## Built With
@@ -95,6 +100,8 @@ elastichq/elasticsearch-hq:latest    0.0.0.0:5000->5000/tcp                     
 * [Elastic Stack](https://www.elastic.co/what-is/elk-stack)
 * [Metricbeat](https://www.elastic.co/guide/en/beats/metricbeat/current/index.html)
 * [Spring Boot Actuator](https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-features.html)
+* [Micrometer Prometheus](https://micrometer.io/docs/registry/prometheus)
+* [Prometheus](https://prometheus.io/docs/introduction/overview/)
 * [Maven](https://maven.apache.org/)
 
 ## License
