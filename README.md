@@ -15,6 +15,8 @@ To learn how to set up a project like this one, check out the following posts:
 * [Monitoring Spring Boot projects with Actuator](https://keepgrowing.in/java/springboot/monitoring-spring-boot-projects-with-actuator/)
 * [Monitoring Spring Boot projects with Prometheus](https://keepgrowing.in/tools/monitoring-spring-boot-projects-with-prometheus/)
 * [Run a Spring Boot app in a Docker container](https://keepgrowing.in/java/springboot/run-a-spring-boot-app-in-a-docker-container/)
+* [How to set up Grafana with Docker and connect it to Prometheus](https://keepgrowing.in/tools/how-to-set-up-grafana-with-docker-and-connect-it-to-prometheus/)
+* [Grafana provisioning – How to configure data sources and dashboards](https://keepgrowing.in/tools/grafana-provisioning-–-how-to-configure-data-sources-and-dashboards/)
 
 ## Getting Started
 
@@ -44,7 +46,7 @@ After starting the Spring Boot app, you have to sign in:
 
 Now you can browse the enabled and exposed [Actuator endpoints](http://localhost:8080/actuator): `info`, `health`, `metrics`.
 
-### Run Elastic Stack
+### Run the Spring Boot app, Elastic Stack, Prometheus and Grafana
 
 * Run this application to make sure that the `all.log` file is created and not empty (more than one line is required).
 * Run the `$ docker-compose up -d` command in the project directory. The following services should be started:
@@ -57,6 +59,7 @@ springbootelasticstack_filebeat                                                 
 springbootelasticstack_metricbeat                                                     springbootelasticstack_metricbeat_1
 elastichq/elasticsearch-hq:latest    0.0.0.0:5000->5000/tcp                           springbootelasticstack_elastichq_1
 prom/prometheus                      0.0.0.0:9090->9090/tcp                           springbootelasticstack_prometheus_1
+grafana/grafana:7.1.3                0.0.0.0:3000->3000/tcp                           springbootelasticstack_grafana_1
 springbootelasticstack_app           0.0.0.0:8080->8080/tcp                           springbootelasticstack_app_1
 
 ```
@@ -68,7 +71,7 @@ springbootelasticstack_app           0.0.0.0:8080->8080/tcp                     
 
 ![kibana-login-screenshot](readme-images/kibana-login-page.png)
 
-* Use the default username:`elastic` and password: `test`.
+* Use the default username: `elastic` and password: `test`.
 * Create `index` defined in the `logstash.conf` file and browse logs accumulated in the `logs/all.log` file (the file is automatically created on the application startup):
 
 ![kibana-discover-screenshot](readme-images/kibana-discover.png)
@@ -89,7 +92,7 @@ springbootelasticstack_app           0.0.0.0:8080->8080/tcp                     
 * You can browse logs in [Kibana](http://localhost:5601/).
 * You can browse Elastic Stack metrics in a [Kibana dashboard](http://localhost:5601/app/monitoring).
 * You can monitor the Spring Boot app using [Actuator endpoints](http://localhost:8080/actuator).
-* You can monitor the Spring Boot app using [Prometheus dashboard](http://localhost:9090).
+* You can monitor the Spring Boot app using the [Prometheus](http://localhost:9090) or [Grafana](http://localhost:3000/) dashboards.
 
 
 ## Built With
@@ -102,6 +105,7 @@ springbootelasticstack_app           0.0.0.0:8080->8080/tcp                     
 * [Spring Boot Actuator](https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-features.html)
 * [Micrometer Prometheus](https://micrometer.io/docs/registry/prometheus)
 * [Prometheus](https://prometheus.io/docs/introduction/overview/)
+* [Grafana](https://grafana.com/grafana/)
 * [Maven](https://maven.apache.org/)
 
 ## License
