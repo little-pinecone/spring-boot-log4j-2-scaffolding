@@ -16,7 +16,7 @@ To learn how to set up a project like this one, check out the following posts:
 * [Monitoring Spring Boot projects with Prometheus](https://keepgrowing.in/tools/monitoring-spring-boot-projects-with-prometheus/)
 * [Run a Spring Boot app in a Docker container](https://keepgrowing.in/java/springboot/run-a-spring-boot-app-in-a-docker-container/)
 * [How to set up Grafana with Docker and connect it to Prometheus](https://keepgrowing.in/tools/how-to-set-up-grafana-with-docker-and-connect-it-to-prometheus/)
-* [Grafana provisioning – How to configure data sources and dashboards](https://keepgrowing.in/tools/grafana-provisioning-–-how-to-configure-data-sources-and-dashboards/)
+* [Grafana provisioning – How to configure data sources and dashboards](https://keepgrowing.in/tools/grafana-provisioning-how-to-configure-data-sources-and-dashboards/)
 
 ## Getting Started
 
