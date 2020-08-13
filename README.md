@@ -84,6 +84,10 @@ springbootelasticstack_app           0.0.0.0:8080->8080/tcp                     
 
 ![docker-cluster-screenshot](readme-images/docker-cluster.png)
 
+You can also monitor the application state using [Grafana](http://localhost:3000/?orgId=1):
+
+![grafana-dashboard-screenshot](readme-images/jvm-dashboard.png)
+
 ## Overview and technical features
 
 * [Log4j 2](https://logging.apache.org/log4j/2.x/) is used for logs processing.
