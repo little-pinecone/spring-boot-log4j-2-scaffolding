@@ -98,6 +98,7 @@ You can also monitor the application state using [Grafana](http://localhost:3000
 * You can browse Elastic Stack metrics in a [Kibana dashboard](http://localhost:5601/app/monitoring).
 * You can monitor the Spring Boot app using [Actuator endpoints](http://localhost:8080/actuator).
 * You can monitor the Spring Boot app using the [Prometheus](http://localhost:9090) or [Grafana](http://localhost:3000/) dashboards.
+* [Project documentation](https://little-pinecone.github.io/spring-boot-log4j-2-scaffolding/)
 
 
 ## Built With
