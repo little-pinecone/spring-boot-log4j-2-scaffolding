@@ -50,7 +50,8 @@ Now you can browse the enabled and exposed [Actuator endpoints](http://localhost
 
 * Run this application to make sure that the `all.log` file is created and not empty (more than one line is required).
 * Run the `$ docker-compose up -d` command in the project directory. The following services should be started:
-```
+
+```bash
 IMAGE                                     PORTS                                            NAMES
 elasticsearch:7.7.0                  0.0.0.0:9200->9200/tcp, 9300/tcp                 springbootelasticstack_elasticsearch_1
 logstash:7.7.0                       0.0.0.0:5044->5044/tcp, 0.0.0.0:9600->9600/tcp   springbootelasticstack_logstash_1
