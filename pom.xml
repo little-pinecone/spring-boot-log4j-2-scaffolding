@@ -16,7 +16,7 @@
 
     <properties>
         <java.version>11</java.version>
-        <jackson-databind.version>2.10.3</jackson-databind.version>
+        <jackson-databind.version>2.12.6.1</jackson-databind.version>
         <jackson-dataformat-yaml.version>2.10.3</jackson-dataformat-yaml.version>
     </properties>
 
